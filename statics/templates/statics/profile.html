@@ -1,0 +1,135 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Profile</title>
+{% endblock %}
+
+{% block body %}
+
+
+
+
+<div class="container">
+  <h1> Gerät mit 8 Füssen </h1>
+<!--
+    <p>Username: {{ user }} </p>
+    <p>First Name: {{ user.first_name }} </p>
+    <p>Last Name: {{ user.last_name }} </p>
+    <p>Email: {{ user.email }} </p>
+-->
+
+  <div class="row justify-content-start">
+    <div class="col-4">
+      <h4 class="mb-4">Maße</h4>
+
+      <div class="row">
+
+        <div class="col-md-6 mb-3">
+          <label for="cc-lgesamt">Gesamtlänge</label>
+          <input type="text" class="form-control" id="cc-lgesamt" placeholder="mm" required>
+          <small class="text-muted fst-italic">L</small><small class="text-muted"><sub>Gesamt</sub></small>
+          <div class="invalid-feedback">
+            Gesamtlänge benötigt.
+          </div>
+        </div>
+
+        <div class="col-md-6 mb-3">
+          <label for="cc-lsammler">Sammlerabstand</label>
+          <input type="text" class="form-control" id="cc-lsammler" placeholder="mm" required>
+          <small class="text-muted fst-italic">L</small><small class="text-muted"><sub>Sammler</sub></small>
+          <div class="invalid-feedback">
+              Sammlerabstand benötigt.
+          </div>
+        </div>
+
+      </div>
+
+      <div class="row">
+
+        <div class="col-md-6 mb-3">
+          <label for="cc-lfuss1">Fussabstand 1</label>
+          <input type="text" class="form-control" id="cc-lfuss1" placeholder="mm" required>
+          <small class="text-muted fst-italic">a</small>
+          <div class="invalid-feedback">
+            Fussabstand 1 benötigt.
+          </div>
+        </div>
+
+        <div class="col-md-6 mb-3">
+          <label for="cc-lfuss2">Fussabstand 2</label>
+          <input type="text" class="form-control" id="cc-lfuss2" placeholder="mm" required>
+          <small class="text-muted fst-italic">b</small>
+          <div class="invalid-feedback">
+            Fussabstand 2 benötigt.
+          </div>
+        </div>
+
+      </div>
+
+      <div class="row">
+
+        <div class="col-md-6 mb-3">
+          <label for="cc-lfuss3">Fussabstand 3</label>
+          <input type="text" class="form-control" id="cc-lfuss3" placeholder="mm" required>
+          <small class="text-muted fst-italic">c</small>
+          <div class="invalid-feedback">
+            Fussabstand 3 benötigt.
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="col-4">
+
+      {% load static %}
+      <img src="{% static 'statics/6f_unit.svg' %}" alt="My image" width="500">
+      <!-- <img src="{% static 'statics/bla.svg' %}" alt="My image" width="600"> -->
+
+    </div>
+  </div>
+
+
+
+    <h4 class="mb-4">Attribute</h4>
+    <div class="row">
+        <div class="col-md-2 mb-3">
+          <label for="cc-mleer">Leergewicht</label>
+          <input type="text" class="form-control" id="cc-mleer" placeholder="kg" required>
+          <small class="text-muted fst-italic">m</small><small class="text-muted"><sub>Leer</sub></small>
+          <div class="invalid-feedback">
+            Leergewicht benötigt.
+          </div>
+        </div>
+        <div class="col-md-2 mb-3">
+          <label for="cc-mSammler">Sammlergewicht</label>
+          <input type="text" class="form-control" id="cc-mS" placeholder="kg" required>
+          <small class="text-muted fst-italic">m</small><small class="text-muted"><sub>Sammler</sub></small>
+          <div class="invalid-feedback">
+            Sammlergewicht benötigt.
+          </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2 mb-5">
+          <label for="cc-vRohr">Rohrinhalt</label>
+          <input type="text" class="form-control" id="cc-vRohr" placeholder="l" required>
+          <small class="text-muted fst-italic">V</small><small class="text-muted"><sub>Rohr</sub></small>
+          <div class="invalid-feedback">
+            Rohrinhalt benötigt.
+          </div>
+        </div>
+    </div>
+
+      <button class="btn btn-primary btn-lg btn-block" type="submit">Berechne</button>
+
+
+
+
+</div>
+    
+<footer class="my-5 pt-5 text-muted text-center text-small">
+    <p class="mb-1">v0.01 - nur für den internen Gebrauch - Christian Kath</p>
+</footer>
+
+{% endblock %}

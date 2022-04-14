@@ -1,0 +1,274 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+  <div class= "container">
+  <form method="post">
+        {% csrf_token %}
+
+    <div class="row justify-content-start">
+      <h1> Gerät mit 8 Füssen </h1>
+      <p class="mb-4 text-muted text-small">Berechnung der abstützenden Fusskräfte eines symmetrischen Gerätes.</p>
+
+      <div class="col-4">
+        <h4 class="mb-4">Maße</h4>
+
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="cc-lgesamt">Gesamtlänge</label>
+            {% if form.LGesamt.value == "" %}
+              <input type="number" name="{{ form.LGesamt.name }}" value="{{ form.LGesamt.value }}" class="form-control" placeholder="mm" step="0.1" required="" id="{{ form.LGesamt.id_for_label }}">
+              <small class="text-muted fst-italic">L</small><small class="text-muted"><sub>Gesamt</sub></small><small class="text-muted"> [mm]</small>
+            {% elif form.LGesamt.value <= 0.0 %}
+              <input type="number" name="{{ form.LGesamt.name }}" value="{{ form.LGesamt.value }}" class="form-control is-invalid" placeholder="mm" step="0.1" required="" id="{{ form.LGesamt.id_for_label }}">
+              <small class="text-muted fst-italic">L</small><small class="text-muted"><sub>Gesamt</sub></small><small class="text-muted"> [mm]</small>
+              <div class="invalid-feedback">
+                Nicht kleiner/gleich 0 mm!
+              </div>
+            {% else %}
+              <input type="number" name="{{ form.LGesamt.name }}" value="{{ form.LGesamt.value }}" class="form-control" placeholder="mm" step="0.1" required="" id="{{ form.LGesamt.id_for_label }}">
+              <small class="text-muted fst-italic">L</small><small class="text-muted"><sub>Gesamt</sub></small><small class="text-muted"> [mm]</small>
+            {% endif %}
+          </div>
+
+          <div class="col-md-6 mb-3">
+            <label for="cc-lsammler">Sammlerabstand</label>
+            {% if form.LSammler.value == "" %}
+              <input type="number" name="{{ form.LSammler.name }}" value="{{ form.LSammler.value }}" class="form-control" placeholder="mm" step="0.1" required="" id="{{ form.LSammler.id_for_label }}">
+              <small class="text-muted fst-italic">L</small><small class="text-muted"><sub>Sammler</sub></small><small class="text-muted"> [mm]</small>
+            {% elif form.LSammler.value <= 0.0 %}
+              <input type="number" name="{{ form.LSammler.name }}" value="{{ form.LSammler.value }}" class="form-control is-invalid" placeholder="mm" step="0.1" required="" id="{{ form.LSammler.id_for_label }}">
+              <small class="text-muted fst-italic">L</small><small class="text-muted"><sub>Sammler</sub></small><small class="text-muted"> [mm]</small>
+              <div class="invalid-feedback">
+                Nicht kleiner/gleich 0 mm!
+              </div>
+            {% elif form.LSammler.value >= form.LGesamt.value %}
+              <input type="number" name="{{ form.LSammler.name }}" value="{{ form.LSammler.value }}" class="form-control is-invalid" placeholder="mm" step="0.1" required="" id="{{ form.LSammler.id_for_label }}">
+              <small class="text-muted fst-italic">L</small><small class="text-muted"><sub>Sammler</sub></small><small class="text-muted"> [mm]</small>
+              <div class="invalid-feedback">
+                Nicht größer/gleich als LGesamt!
+              </div>
+            {% else %}
+              <input type="number" name="{{ form.LSammler.name }}" value="{{ form.LSammler.value }}" class="form-control" placeholder="mm" step="0.1" required="" id="{{ form.LSammler.id_for_label }}">
+              <small class="text-muted fst-italic">L</small><small class="text-muted"><sub>Sammler</sub></small><small class="text-muted"> [mm]</small>
+            {% endif %}
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="cc-lfuss1">Fussabstand 1</label>
+            {% if form.Fabstand1.value == "" %}
+              <input type="number" name="{{ form.Fabstand1.name }}" value="{{ form.Fabstand1.value }}" class="form-control" placeholder="mm" step="0.1" required="" id="{{ form.Fabstand1.id_for_label }}">
+              <small class="text-muted fst-italic">a</small><small class="text-muted"> [mm]</small>
+            {% elif form.Fabstand1.value <= 0.0 %}
+              <input type="number" name="{{ form.Fabstand1.name }}" value="{{ form.Fabstand1.value }}" class="form-control is-invalid" placeholder="mm" step="0.1" required="" id="{{ form.Fabstand1.id_for_label }}">
+              <small class="text-muted fst-italic">a</small><small class="text-muted"> [mm]</small>
+              <div class="invalid-feedback">
+                Nicht kleiner/gleich 0 mm!
+              </div>
+            {% elif form.Fabstand1.value >= form.LGesamt.value %}
+              <input type="number" name="{{ form.Fabstand1.name }}" value="{{ form.Fabstand1.value }}" class="form-control is-invalid" placeholder="mm" step="0.1" required="" id="{{ form.Fabstand1.id_for_label }}">
+              <small class="text-muted fst-italic">a</small><small class="text-muted"> [mm]</small>
+              <div class="invalid-feedback">
+                Nicht größer/gleich als LGesamt!
+              </div>
+            {% else %}
+              <input type="number" name="{{ form.Fabstand1.name }}" value="{{ form.Fabstand1.value }}" class="form-control" placeholder="mm" step="0.1" required="" id="{{ form.Fabstand1.id_for_label }}">
+              <small class="text-muted fst-italic">a</small><small class="text-muted"> [mm]</small>
+            {% endif %}
+          </div>
+
+          <div class="col-md-6 mb-3">
+            <label for="cc-lfuss2">Fussabstand 2</label>
+            {% if form.Fabstand2.value == "" %}
+              <input type="number" name="{{ form.Fabstand2.name }}" value="{{ form.Fabstand2.value }}" class="form-control" placeholder="mm" step="0.1" required="" id="{{ form.Fabstand2.id_for_label }}">
+              <small class="text-muted fst-italic">b</small><small class="text-muted"> [mm]</small>
+            {% elif form.Fabstand2.value <= 0.0 %}
+              <input type="number" name="{{ form.Fabstand2.name }}" value="{{ form.Fabstand2.value }}" class="form-control is-invalid" placeholder="mm" step="0.1" required="" id="{{ form.Fabstand2.id_for_label }}">
+              <small class="text-muted fst-italic">b</small><small class="text-muted"> [mm]</small>
+              <div class="invalid-feedback">
+                Nicht kleiner/gleich 0 mm!
+              </div>
+            {% elif form.Fabstand2.value >= form.LGesamt.value %}
+              <input type="number" name="{{ form.Fabstand2.name }}" value="{{ form.Fabstand2.value }}" class="form-control is-invalid" placeholder="mm" step="0.1" required="" id="{{ form.Fabstand2.id_for_label }}">
+              <small class="text-muted fst-italic">b</small><small class="text-muted"> [mm]</small>
+              <div class="invalid-feedback">
+                Nicht größer/gleich als LGesamt!
+              </div>
+            {% else %}
+              <input type="number" name="{{ form.Fabstand2.name }}" value="{{ form.Fabstand2.value }}" class="form-control" placeholder="mm" step="0.1" required="" id="{{ form.Fabstand2.id_for_label }}">
+              <small class="text-muted fst-italic">b</small><small class="text-muted"> [mm]</small>
+            {% endif %}
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="cc-lfuss3">Fussabstand 3</label>
+            {% if form.Fabstand3.value == "" %}
+              <input type="number" name="{{ form.Fabstand3.name }}" value="{{ form.Fabstand3.value }}" class="form-control" placeholder="mm" step="0.1" required="" id="{{ form.Fabstand3.id_for_label }}">
+              <small class="text-muted fst-italic">c</small><small class="text-muted"> [mm]</small>
+            {% elif form.Fabstand3.value <= 0.0 %}
+              <input type="number" name="{{ form.Fabstand3.name }}" value="{{ form.Fabstand3.value }}" class="form-control is-invalid" placeholder="mm" step="0.1" required="" id="{{ form.Fabstand3.id_for_label }}">
+              <small class="text-muted fst-italic">c</small><small class="text-muted"> [mm]</small>
+              <div class="invalid-feedback">
+                Nicht kleiner/gleich 0 mm!
+              </div>
+            {% elif form.Fabstand3.value >= form.LGesamt.value %}
+              <input type="number" name="{{ form.Fabstand3.name }}" value="{{ form.Fabstand3.value }}" class="form-control is-invalid" placeholder="mm" step="0.1" required="" id="{{ form.Fabstand3.id_for_label }}">
+              <small class="text-muted fst-italic">c</small><small class="text-muted"> [mm]</small>
+              <div class="invalid-feedback">
+                Nicht größer/gleich als LGesamt!
+              </div>
+            {% else %}
+              <input type="number" name="{{ form.Fabstand3.name }}" value="{{ form.Fabstand3.value }}" class="form-control" placeholder="mm" step="0.1" required="" id="{{ form.Fabstand3.id_for_label }}">
+              <small class="text-muted fst-italic">c</small><small class="text-muted"> [mm]</small>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+
+      <div class="col-8 text-center">
+        {% load static %}
+        <img src="{% static 'statics/8f_unit.svg' %}" alt="My image" width="700">
+      </div>
+
+      <div class="col-4 pt-4">
+        <h4 class="mb-4">Attribute</h4>
+
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="cc-mleer">Leergewicht</label>
+            {% if form.mLeer.value == "" %}
+              <input type="number" name="{{ form.mLeer.name }}" value="{{ form.mLeer.value }}" class="form-control" placeholder="kg" step="0.1" required="" id="{{ form.mLeer.id_for_label }}">
+              <small class="text-muted fst-italic">m</small><small class="text-muted"><sub>Leer</sub></small><small class="text-muted"> [kg]</small>
+            {% elif form.mLeer.value <= 0.0 %}
+              <input type="number" name="{{ form.mLeer.name }}" value="{{ form.mLeer.value }}" class="form-control is-invalid" placeholder="kg" step="0.1" required="" id="{{ form.mLeer.id_for_label }}">
+              <small class="text-muted fst-italic">m</small><small class="text-muted"><sub>Leer</sub></small><small class="text-muted"> [kg]</small>
+              <div class="invalid-feedback">
+                Nicht kleiner/gleich 0 kg!
+              </div>
+            {% else %}
+              <input type="number" name="{{ form.mLeer.name }}" value="{{ form.mLeer.value }}" class="form-control" placeholder="kg" step="0.1" required="" id="{{ form.mLeer.id_for_label }}">
+              <small class="text-muted fst-italic">m</small><small class="text-muted"><sub>Leer</sub></small><small class="text-muted"> [kg]</small>
+            {% endif %}
+          </div>
+
+          <div class="col-md-6 mb-3">
+            <label for="cc-mSammler">Sammlergewicht</label>
+            {% if form.mSammler.value == "" %}
+              <input type="number" name="{{ form.mSammler.name }}" value="{{ form.mSammler.value }}" class="form-control" placeholder="kg" step="0.1" required="" id="{{ form.mSammler.id_for_label }}">
+              <small class="text-muted fst-italic">m</small><small class="text-muted"><sub>Sammler</sub></small><small class="text-muted"> [kg]</small>
+            {% elif form.mSammler.value <= 0.0 %}
+              <input type="number" name="{{ form.mSammler.name }}" value="{{ form.mSammler.value }}" class="form-control is-invalid" placeholder="kg" step="0.1" required="" id="{{ form.mSammler.id_for_label }}">
+              <small class="text-muted fst-italic">m</small><small class="text-muted"><sub>Sammler</sub></small><small class="text-muted"> [kg]</small>
+              <div class="invalid-feedback">
+                Nicht kleiner/gleich 0 kg!
+              </div>
+            {% elif form.mSammler.value >= form.mLeer.value %}
+              <input type="number" name="{{ form.mSammler.name }}" value="{{ form.mSammler.value }}" class="form-control is-invalid" placeholder="kg" step="0.1" required="" id="{{ form.mSammler.id_for_label }}">
+              <small class="text-muted fst-italic">m</small><small class="text-muted"><sub>Sammler</sub></small><small class="text-muted"> [kg]</small>
+              <div class="invalid-feedback">
+                Nicht größer/gleich als mLeer!
+              </div>
+            {% else %}
+              <input type="number" name="{{ form.mSammler.name }}" value="{{ form.mSammler.value }}" class="form-control" placeholder="kg" step="0.1" required="" id="{{ form.mSammler.id_for_label }}">
+              <small class="text-muted fst-italic">m</small><small class="text-muted"><sub>Sammler</sub></small><small class="text-muted"> [kg]</small>
+            {% endif %}
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="cc-vRohr">Rohrinhalt</label>
+            {% if form.VRohr.value == "" %}
+              <input type="number" name="{{ form.VRohr.name }}" value="{{ form.VRohr.value }}" class="form-control" placeholder="l" step="0.1" required="" id="{{ form.VRohr.id_for_label }}">
+              <small class="text-muted fst-italic">V</small><small class="text-muted"><sub>Rohr</sub></small><small class="text-muted"> [l]</small>
+            {% elif form.VRohr.value <= 0.0 %}
+              <input type="number" name="{{ form.VRohr.name }}" value="{{ form.VRohr.value }}" class="form-control is-invalid" placeholder="l" step="0.1" required="" id="{{ form.VRohr.id_for_label }}">
+              <small class="text-muted fst-italic">V</small><small class="text-muted"><sub>Rohr</sub></small><small class="text-muted"> [l]</small>
+              <div class="invalid-feedback">
+                Nicht kleiner/gleich 0 l!
+              </div>            
+            {% else %}
+              <input type="number" name="{{ form.VRohr.name }}" value="{{ form.VRohr.value }}" class="form-control" placeholder="l" step="0.1" required="" id="{{ form.VRohr.id_for_label }}">
+              <small class="text-muted fst-italic">V</small><small class="text-muted"><sub>Rohr</sub></small><small class="text-muted"> [l]</small>
+            {% endif %}
+          </div>
+        </div>
+
+      </div>
+
+      <div class="col-2">
+      </div>
+
+      <div class="col-4 pt-4">
+        <h4 class="mb-4">Ergebnisse</h4>
+        <table class="table table-bordered table-striped">
+          <thead>
+            <tr>
+              <th></th>
+              <th class="text-center">
+                <p> <em>F</em> <sub>1/2</sub> </p> <p class="fw-lighter"> [N] </p>
+              </th>
+              <th class="text-center">
+                <p> <em>F</em> <sub>3/4</sub> </p> <p class="fw-lighter"> [N] </p>
+              </th>
+              <th class="text-center">
+                <p> <em>F</em> <sub>5/6</sub> </p> <p class="fw-lighter"> [N] </p>
+              </th>
+              <th class="text-center">
+                <p> <em>F</em> <sub>7/8</sub> </p> <p class="fw-lighter"> [N] </p>
+              </th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr>
+              <th class="text-nowrap" scope="row">Gerät leer</th>
+                <td>{{ F12Leer }}</td>
+                <td>{{ F34Leer }}</td>
+                <td>{{ F56Leer }}</td>
+                <td>{{ F78Leer }}</td>
+            </tr>
+            <tr>
+              <th class="text-nowrap" scope="row">Gerät befüllt</th>
+                <td>{{ F12Voll }}</td>
+                <td>{{ F34Voll }}</td>
+                <td>{{ F56Voll }}</td>
+                <td>{{ F78Voll }}</td>
+            </tr>
+            <tr>
+              <th class="text-nowrap" scope="row"></th>      
+            </tr>
+            <tr>
+              <th class="text-nowrap" scope="row">Befestigungspunkte</th>
+              <td colspan="1" class="text-center">8</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+
+    <div class="row justify-content-start pt-2">
+      <div class="col-4">
+        <div class="row">
+          <button class="btn btn-primary btn-lg btn-block" type="submit">Berechne</button>
+        </div>
+      </div>
+    </div>
+
+  </form>
+  </div>
+
+<footer class="my-5 pt-5 text-muted text-center text-small">
+    <p class="mb-1">v0.01</p>
+</footer>
+
+{% endblock %}
+
+
+
+

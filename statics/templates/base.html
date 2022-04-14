@@ -1,0 +1,74 @@
+
+{% comment %} <!DOCTYPE html>
+<html>
+    <head>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+        {% block head%}
+        <title>Base</title>
+        {% endblock %}
+    </head>
+    <body>
+       {% block body %}
+        <h1> Base </h1>
+       {% endblock %}
+    </body>
+</html>
+ {% endcomment %}
+
+
+<html>
+    <head>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        {% block head %}
+        <title>Base</title>
+        {% endblock %}
+    </head>
+    <body>
+
+        <div class="container">
+
+
+
+
+  <nav class="navbar navbar-expand bg-blue">
+      <!-- <a class="navbar-brand my-0 mr-md-auto font-weight-normal" href="#">_________</a> -->
+      <a class="navbar-brand" >_________</a>
+      <!-- <h5 class="my-0 mr-md-auto font-weight-normal">_________</h5> -->
+
+      <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample02" aria-controls="navbarsExample02" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button> -->
+
+      {% if user.is_authenticated %}
+
+      <div class="collapse navbar-collapse" id="navbarsExample02">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link" href={% url 'statics:static8F' %}>8-Fuss-Gerät</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href={% url 'statics:static6F' %}>6-Fuss-Gerät</span></a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+      {% else %}
+      <div class="collapse navbar-collapse" id="navbarsExample02">
+
+      </div>
+    </nav>
+      {% endif %}
+
+  </div>
+
+
+
+        {% block body %}
+            <h1>Base</h1>
+        {% endblock %}
+    </body>
+ 
+
+</html>
